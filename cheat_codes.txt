@@ -1,0 +1,2 @@
+start VS through admin 
+setx Parameter "Connection String"

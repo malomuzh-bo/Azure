@@ -20,6 +20,7 @@ BlobClient bClient = bcClient.GetBlobClient(fileName);
 
 await bClient.UploadAsync(Path.Combine(local_path, fileName));
 
+
 await foreach (var item in bcClient.GetBlobsAsync())
 {
     Console.WriteLine(item.Name);
