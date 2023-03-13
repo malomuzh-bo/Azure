@@ -1,0 +1,28 @@
+﻿@using Azure.Storage.Queues.Models;
+@{
+    ViewData["Title"] = "Home Page";
+}
+@model Lot
+<form method="post" asp-action="Index">
+    <label>Currency name:</label>
+    <select asp-for="Currency" id="currency-name">
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="CAD">CAD</option>
+        <option value="CNY">CNY</option>
+        <option value="SEK">SEK</option>
+    </select>
+    <br>
+    <label>Amount:</label>
+    <input asp-for="Sum" id="amount">
+    <br>
+    <label>Seller last name:</label>
+    <input asp-for="UserName" id="seller-last-name">
+    <br>
+    <button type="submit">Create lot</button>
+</form>
+
+<div>
+    <h3>Lots:</h3>
+
+</div>
