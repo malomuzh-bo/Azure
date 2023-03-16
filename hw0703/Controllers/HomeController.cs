@@ -24,7 +24,7 @@ namespace hw0703.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> AddItemAsync()
+        public async Task<IActionResult> AddItemAsync(IFormFile fileName)
         {
             var items = Request.Form.Files;
             if (items.Count > 0)
