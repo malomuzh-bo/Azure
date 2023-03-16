@@ -1,15 +1,11 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+	ViewData["Title"] = "Home Page";
 }
-@model CustomClass
 
-<form method="post">
-    <input type="file" placeholder="Select image" asp-for="" />
-    <button onclick="send">Send</button>
-</form>
-
-<script>
-    function send(){
-
-    }
-</script>
+<div>
+	<h3>Gallery</h3>
+	<form method="post" asp-controller="Home" asp-action="AddItemAsync" enctype="multipart/form-data">
+		<input type="file" name="fileName" />
+		<input type="submit" value="Upload" />
+	</form>
+</div>

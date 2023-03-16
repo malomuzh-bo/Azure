@@ -11,7 +11,6 @@ string container = "container" + Guid.NewGuid().ToString();
 
 string local_path = "./data";
 Directory.CreateDirectory(local_path);
-string fileName = "test-file.txt";
 
 await File.WriteAllTextAsync(Path.Combine(local_path, fileName), "Hello, my homie, my braza, Azure!");
 
