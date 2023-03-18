@@ -23,7 +23,7 @@ namespace hw0703new.Controllers
 			return View();
 		}
 		[HttpPost]
-		public async Task<IActionResult> AddItemAsync(IFormFile fileName)
+		public async Task<IActionResult> AddPhotoAsync(IFormFile fileName)
 		{
 			var items = Request.Form.Files;
 			if (items.Count > 0)
