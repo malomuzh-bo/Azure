@@ -9,8 +9,7 @@ namespace hw0903.Models
     {
         static string conn_str = "DefaultEndpointsProtocol=https;AccountName=storageidk;AccountKey=A/VMaeuCjtx3sctTfA9L3ZLpEM0iAE3LMfF77ewgq7Kvxtb9RnyNRpbHlpX1xykgRgBPfzcN78ZO+AStU265LQ==;EndpointSuffix=core.windows.net";
         static QueueServiceClient qsClient = new QueueServiceClient(conn_str);
-
-        static async Task<QueueClient> GetQueueClientAsync()
+		static async Task<QueueClient> GetQueueClientAsync()
         {
             try
             {
@@ -24,12 +23,15 @@ namespace hw0903.Models
 
         public static async Task createLot(Lot lot)
         {
+            lot.Id = Guid.NewGuid().ToString();
             string message = JsonConvert.SerializeObject(lot);
             await (await GetQueueClientAsync()).SendMessageAsync(message);
         }
-        public static async Task delLot(string messId, string popReceipt)
+        public static async Task delLot(string id)
         {
-            await (await GetQueueClientAsync()).DeleteMessageAsync(messId, popReceipt);
+            var arr = (await (await GetQueueClientAsync()).ReceiveMessagesAsync(maxMessages: 10, visibilityTimeout: TimeSpan.FromSeconds(1))).Value;
+            var message = arr.Where(q => q.MessageId.Equals(id)).First();
+            await (await GetQueueClientAsync()).DeleteMessageAsync(message.MessageId, message.PopReceipt);
         }
         public static async Task<PeekedMessage[]> getLots()
         {

@@ -1,28 +1,61 @@
 ﻿@using Azure.Storage.Queues.Models;
+@using Newtonsoft.Json;
 @{
-    ViewData["Title"] = "Home Page";
+	ViewData["Title"] = "Home Page";
 }
 @model Lot
 <form method="post" asp-action="Index">
-    <label>Currency name:</label>
-    <select asp-for="Currency" id="currency-name">
-        <option value="USD">USD</option>
-        <option value="EUR">EUR</option>
-        <option value="CAD">CAD</option>
-        <option value="CNY">CNY</option>
-        <option value="SEK">SEK</option>
-    </select>
-    <br>
-    <label>Amount:</label>
-    <input asp-for="Sum" id="amount">
-    <br>
-    <label>Seller last name:</label>
-    <input asp-for="UserName" id="seller-last-name">
-    <br>
-    <button type="submit">Create lot</button>
+	<label>Currency name:</label>
+	<select asp-for="Currency" id="currency-name">
+		<option value="USD">USD</option>
+		<option value="EUR">EUR</option>
+		<option value="CAD">CAD</option>
+		<option value="CNY">CNY</option>
+		<option value="SEK">SEK</option>
+	</select>
+	<br>
+	<label>Amount:</label>
+	<input asp-for="Sum" id="amount">
+	<br>
+	<label>Seller last name:</label>
+	<input asp-for="UserName" id="seller-last-name">
+	<br>
+	<button type="submit">Create lot</button>
 </form>
 
 <div>
-    <h3>Lots:</h3>
-
+	<h3>Lots:</h3>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th scope="col">Currency</th>
+				<th scope="col">Sum</th>
+				<th scope="col">Username</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (PeekedMessage item in ViewBag.result)
+			{
+				<tr>
+					<td hidden>
+						@(JsonConvert.DeserializeObject<Lot>(item.Body.ToString()).Id)
+					</td>
+					<td>
+						@(JsonConvert.DeserializeObject<Lot>(item.Body.ToString()).Currency)
+					</td>
+					<td>
+						@(JsonConvert.DeserializeObject<Lot>(item.Body.ToString()).Sum)
+					</td>
+					<td>
+						@(JsonConvert.DeserializeObject<Lot>(item.Body.ToString()).UserName)
+					</td>
+					<td>
+						<form method="get" asp-action="BuyLot" asp-route-id="@(JsonConvert.DeserializeObject<Lot>(item.Body.ToString()).Id)">
+							<button class="btn btn-warning" type="submit">Buy lot</button>
+						</form>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
 </div>
