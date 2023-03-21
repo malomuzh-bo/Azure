@@ -50,7 +50,7 @@
 						@(JsonConvert.DeserializeObject<Lot>(item.Body.ToString()).UserName)
 					</td>
 					<td>
-						<form method="get" asp-action="BuyLot" asp-route-id="@(JsonConvert.DeserializeObject<Lot>(item.Body.ToString()).Id)">
+						<form method="get" asp-action="BuyLot" asp-route-id="@item.MessageId)">
 							<button class="btn btn-warning" type="submit">Buy lot</button>
 						</form>
 					</td>

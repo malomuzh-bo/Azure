@@ -9,7 +9,8 @@ builder.ConfigureWebJobs(q => { q.AddAzureStorageCoreServices(); q.AddAzureStora
 builder.ConfigureLogging((q, a) => 
 {
 	a.AddConsole();
-	string key = q.Configuration["AzureWebJobsStorage"]; 
+	string key = q.Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"];
+	a.AddApplicationInsightsWebJobs(r => r.InstrumentationKey = key);
 });
 var host = builder.Build();
 
