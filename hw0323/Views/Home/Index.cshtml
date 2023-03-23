@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model MyService
+<h2>Service</h2>
+
+<form method="post" name="files" enctype="multipart/form-data">
+	<input type="file" name="myFile" accept="image/*" />
+	<button asp-action="AddPhotoAsync" class="btn btn-primary">Load</button>
+	<button class="btn btn-primary">Read text with AI</button>
+	<button class="btn btn-primary">Define a landmark</button>
+	<button class="btn btn-primary">Define a celebrity</button>
+	<button class="btn btn-primary">Define an adult content</button>
+</form>

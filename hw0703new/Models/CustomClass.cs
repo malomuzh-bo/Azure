@@ -34,11 +34,8 @@ namespace hw0703new.Models
 			fs.Close();*/
 			fileName = Path.GetFileName(item_name);
 			string filePath = Path.Combine(path, fileName);
-			//await File.WriteAllBytesAsync(filePath, imageName);
 			bClient = bcClient.GetBlobClient(fileName);
-			//using FileStream fs=File.OpenRead(filePath);
 			await bClient.UploadAsync(item_name);
-			//fs.Close();
 		}
 	}
 }
