@@ -2,7 +2,19 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<form asp-action="AddCategories">
+    <button type="submit">Add categories</button>
+</form>
+<form asp-action="AddProducts">
+    <button type="submit">Add products</button>
+</form>
+
+<form asp-action="Index" asp-controller="Category">
+    <input type="submit" value="To categories" />
+</form>
+
+<form asp-action="Index" asp-controller="Product">
+    <input type="submit" value="To Products" />
+</form>
+
+

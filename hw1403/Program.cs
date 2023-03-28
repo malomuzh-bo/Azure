@@ -1,7 +1,13 @@
+using hw1403.Models;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<MyContext>(options => options.UseCosmos("AccountEndpoint=https://malomuzh-nosql.documents.azure.com:443/;" +
+                "AccountKey=nu6UiQlebDqCjkNHSU3UQHFNHsqIP8GyB8o9jePvgmcD8iZAFFWYAfy2CL6KUujIzEVbmBYHZWZfACDb9xjkSA==;",
+                "DbShop0327"));
 
 var app = builder.Build();
 
