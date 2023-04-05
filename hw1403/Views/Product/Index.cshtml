@@ -1,15 +1,65 @@
 ﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+	For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
 <h2>Products:</h2>
-<ul>
-    @foreach (Product item in ViewBag.products)
-    {
-        <li>@item.Title</li>
-    }
-</ul>
+
+@*<div class="dropdown d-none d-sm-inline-block form-inline">
+	<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+		Select сategory:
+	</button>
+	<ul class="dropdown-menu dropdown-menu-left">
+		@foreach (Category item in ViewBag.categories)
+		{
+			<form method="POST">
+				<li>
+					<button class="dropdown-item" asp-action="Index" asp-controller="Product" asp-route-id="@item.Id.ToString()">
+						@item.CategoryName
+					</button>
+				</li>
+			</form>
+		}
+	</ul>
+</div>
+<form method="POST" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+	<div class="input-group">
+		<input name="searchString" type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+			   aria-label="Search" aria-describedby="basic-addon2">
+		<div class="input-group-append">
+			<button class="btn btn-primary" asp-action="SearchById" asp-controller="Product">
+				<i class="fas fa-search fa-sm">Search</i>
+			</button>
+		</div>
+	</div>
+</form>*@
+
+<table class="table">
+	<tr>
+		<td>Title</td>
+		<td>Info</td>
+	</tr>
+
+	@foreach (Product item in ViewBag.products)
+	{
+		<tr>
+			<td>@item.Title</td>
+			<td>@item.Description</td>
+			<td>
+				<form method="GET" asp-controller="Product" asp-action="Edit" asp-route-id="@item.Id.ToString()">
+					<button type="submit" class="btn btn-outline-warning">Edit</button>
+				</form>
+			</td>
+			<td>
+				<form method="GET" asp-controller="Product" asp-action="Delete" asp-route-id="@item.Id.ToString()">
+					<button type="submit" class="btn btn-outline-danger">Delete</button>
+				</form>
+			</td>
+		</tr>
+	}
+</table>
+
 <hr />
+
 <form asp-action="Create" asp-controller="Product">
-    <input type="submit" value="Create product" />
+	<input type="submit" value="Create product" />
 </form>

@@ -1,0 +1,67 @@
+﻿@{
+	ViewData["Title"] = "Home Page";
+}
+
+
+<form method="post" asp-action="Translate">
+	<div class="d-flex justify-content-center">
+		<label for="text">Translation text:</label>
+		<textarea id="text" name="text" class="custom_textArea"></textarea>
+	</div>
+
+	<div class="d-flex justify-content-center">
+		<label for="sourceLang">Original:</label>
+		<select id="sourceLang" name="sourceLang">
+			<option value="-1">Select</option>
+			@foreach (Language item in ViewBag.languages)
+			{
+				<option value="@item.Code">@item.Name</option>
+			}
+		</select>
+
+		<label for="targetLang">Translate to:</label>
+		<select id="targetLang" name="targetLang">
+			<option value="-1">Select</option>
+			@foreach (Language item in ViewBag.languages)
+			{
+				<option value="@item.Code">@item.Name</option>
+			}
+		</select>
+	</div>
+		<input type="submit" value="Translate" />
+</form>
+	
+
+<div>
+	<p></p>
+</div>
+
+<script>
+	async function SetLang() {
+		let resp = await fetch("https://api.cognitive.microsofttranslator.com/languages?api-version=3.0");
+		if (resp.ok) {
+			let lang = await resp.json();
+			AddToSelect(lang.translation);
+		}
+	}
+	function AddToSelect(langs) {
+		var selectFrom = document.getElementById("from");
+		var selectTo = document.getElementById("to");
+		var optionDetect = document.createElement("option");
+		optionDetect.value = "";
+		optionDetect.textContent = `Detected language`;
+		selectFrom.appendChild(optionDetect);
+		for (const [key, value] of Object.entries(langs)) {
+			var option = document.createElement("option");
+			option.value = key;
+			option.textContent = `${value.name} (${value.nativeName})`;
+			selectFrom.appendChild(option);
+		}
+		for (const [key, value] of Object.entries(langs)) {
+			var option = document.createElement("option");
+			option.value = key;
+			option.textContent = `${value.name} (${value.nativeName})`;
+			selectTo.appendChild(option);
+		}
+	}
+</script>
